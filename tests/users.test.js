@@ -10,10 +10,10 @@ Requirements:
         a. status code of 200
         b. token
 */
-const test_1_config = {
+const users_test_1_config = {
   body: {
-    name: 'fntest1 lntest1',
-    email: 'test1@test1.com',
+    name: 'fnuserstest1 lnuserstest1',
+    email: 'userstest1@userstest1.com',
     password: '123456',
   },
 };
@@ -29,9 +29,9 @@ const test_1_config = {
         a. status code of 400
         b. error message: 'Name is required'
 */
-const test_3_config = {
+const users_test_3_config = {
   body: {
-    email: 'test3@test3.com',
+    email: 'userstest3@userstest3.com',
     password: '123456',
   },
 };
@@ -40,9 +40,9 @@ const test_3_config = {
         a. status code of 400
         b. error message: 'Please include a valid email'
 */
-const test_4_config = {
+const users_test_4_config = {
   body: {
-    name: 'fntest4 lntest4',
+    name: 'fnuserstest4 lnuserstest4',
     password: '123456',
   },
 };
@@ -51,10 +51,10 @@ const test_4_config = {
         a. status code of 400
         b. error message: 'Please include a valid email'
 */
-const test_5_config = {
+const users_test_5_config = {
   body: {
-    name: 'fntest5 lntest5',
-    email: 'test5_test5.com',
+    name: 'fnuserstest5 lnuserstest5',
+    email: 'userstest5_userstest5.com',
     password: '123456',
   },
 };
@@ -63,10 +63,10 @@ const test_5_config = {
         a. status code of 400
         b. error message: 'Please enter a password of six characters or more'
 */
-const test_6_config = {
+const users_test_6_config = {
   body: {
-    name: 'fntest6 lntest6',
-    email: 'test6@test6.com',
+    name: 'fnuserstest6 lnuserstest6',
+    email: 'userstest6@userstest6.com',
   },
 };
 /*
@@ -74,18 +74,18 @@ const test_6_config = {
         a. status code of 400
         b. error message: 'Please enter a password of six characters or more'
 */
-const test_7_config = {
+const users_test_7_config = {
   body: {
-    name: 'fntest7 lntest7',
-    email: 'test7@test7.com',
+    name: 'fnuserstest7 lnuserstest7',
+    email: 'userstest7@userstest7.com',
     password: '12345',
   },
 };
 
 // TEST 1 USER CLEANUP:
 const User = require('../models/User');
-const test_1_user_cleanup = async () => {
-  const { email } = test_1_config.body;
+const users_test_1_user_cleanup = async () => {
+  const { email } = users_test_1_config.body;
   let user = await User.findOne({ email });
 
   if (user) {
@@ -97,10 +97,10 @@ const test_1_user_cleanup = async () => {
 
 describe('hooks', () => {
   before(async () => {
-    await test_1_user_cleanup();
+    await users_test_1_user_cleanup();
   });
   after(async () => {
-    await test_1_user_cleanup();
+    await users_test_1_user_cleanup();
   });
 
   // Begin tests
@@ -109,7 +109,7 @@ describe('hooks', () => {
     it('POST /api/users with valid new user and returns a token', async () => {
       const response = await request(server)
         .post('/api/users')
-        .send(test_1_config.body)
+        .send(users_test_1_config.body)
         .set('Content-Type', 'application/json');
       expect(response.status).to.equal(200);
       expect(response.body).to.be.an.instanceOf(Object);
@@ -119,7 +119,7 @@ describe('hooks', () => {
     it('POST /api/users with existing user and should fail', async () => {
       const response = await request(server)
         .post('/api/users')
-        .send(test_1_config.body)
+        .send(users_test_1_config.body)
         .set('Content-Type', 'application/json');
       expect(response.status).to.equal(400);
       expect(response.body.errors[0].msg).to.be.equal('User already exists');
@@ -129,7 +129,7 @@ describe('hooks', () => {
     it('POST /api/users without name and should fail', async () => {
       const response = await request(server)
         .post('/api/users')
-        .send(test_3_config.body)
+        .send(users_test_3_config.body)
         .set('Content-Type', 'application/json');
       expect(response.status).to.equal(400);
       expect(response.body.errors[0].msg).to.be.equal('Name is required');
@@ -139,7 +139,7 @@ describe('hooks', () => {
     it('POST /api/users without email and should fail', async () => {
       const response = await request(server)
         .post('/api/users')
-        .send(test_4_config.body)
+        .send(users_test_4_config.body)
         .set('Content-Type', 'application/json');
       expect(response.status).to.equal(400);
       expect(response.body.errors[0].msg).to.be.equal(
@@ -151,7 +151,7 @@ describe('hooks', () => {
     it('POST /api/users with invalid email and should fail', async () => {
       const response = await request(server)
         .post('/api/users')
-        .send(test_5_config.body)
+        .send(users_test_5_config.body)
         .set('Content-Type', 'application/json');
       expect(response.status).to.equal(400);
       expect(response.body.errors[0].msg).to.be.equal(
@@ -163,7 +163,7 @@ describe('hooks', () => {
     it('POST /api/users without password and should fail', async () => {
       const response = await request(server)
         .post('/api/users')
-        .send(test_6_config.body)
+        .send(users_test_6_config.body)
         .set('Content-Type', 'application/json');
       expect(response.status).to.equal(400);
       expect(response.body.errors[0].msg).to.be.equal(
@@ -175,7 +175,7 @@ describe('hooks', () => {
     it('POST /api/users with password less than 6 characters and should fail', async () => {
       const response = await request(server)
         .post('/api/users')
-        .send(test_7_config.body)
+        .send(users_test_7_config.body)
         .set('Content-Type', 'application/json');
       expect(response.status).to.equal(400);
       expect(response.body.errors[0].msg).to.be.equal(
