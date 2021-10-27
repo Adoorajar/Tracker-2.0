@@ -71,7 +71,7 @@ const auth_test_5_config = {
 // User Test 4 user for this test
 /*
 GET api/auth tests:
-7.  When GET with valid token of existing user, should return user
+7.  When GET api/auth with valid token of existing user, should return user
 */
 // Register user and use token for test 7
 const auth_test_7_config = {
@@ -82,7 +82,7 @@ const auth_test_7_config = {
   },
 };
 /*
-8.  When GET with invalid token, should return:
+8.  When GET api/auth with invalid token, should return:
     a. status code 401
     b. Error message 'Token is not valid'
 */
@@ -92,11 +92,10 @@ const auth_test_8_config = {
   },
 };
 /*
-9.  When GET with valid token that doesn't belong to any existing users, should return:
+9.  When GET api/auth with valid token that doesn't belong to any existing users, should return:
     a. status code 500
     b. Error message 'Server Error'
 */
-// Register user, store token, then delete user from db
 const auth_test_9_config = {
   body: {
     name: 'fnauthtest9 lnauthtest9',
@@ -107,7 +106,7 @@ const auth_test_9_config = {
   },
 };
 /*
-10.  When GET without token, should return:
+10.  When GET api/auth without token, should return:
     a. status code 401
     b. Error message 'No token, authorization denied'
 */
