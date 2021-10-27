@@ -38,3 +38,9 @@ GET api/projects/:id
     a. status code 401
     b. Error message 'Token is not valid'
 */
+/*
+7.  when GET api/projects/:id with valid token of authenticated user
+    and invalid project id, should return: 
+        a. status code of 404
+        b. error message 'No project found with that ID'
+*/
